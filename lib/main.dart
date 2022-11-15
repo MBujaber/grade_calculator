@@ -28,6 +28,8 @@ class MyApp extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(top: 100),
                 child: TextField(
+                  controller: controller,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       hintText: "Type your score",
                       prefixIcon: Icon(Icons.percent),
@@ -44,9 +46,18 @@ class MyApp extends StatelessWidget {
                   child: ElevatedButton(
                     child: Text("Calculate"),
                     onPressed: () {
-                      print("hello ${controller.text}");
-                      int grade = int.parse(controller.text);
-                      controller.clear();
+                      int? grade = int.tryParse(controller.text);
+                      if (grade! >= 90) {
+                        print("A");
+                      } else if (grade >= 80) {
+                        print("B");
+                      } else if (grade >= 70) {
+                        print("C");
+                      } else if (grade >= 60) {
+                        print("D");
+                      } else {
+                        print("F");
+                      }
                     },
                   ),
                 ),
