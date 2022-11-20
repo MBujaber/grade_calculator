@@ -1,15 +1,22 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This function is triggered when the "Save" button is pressed
   final controller = TextEditingController();
-
+  String gradeText = "";
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -40,26 +47,50 @@ class MyApp extends StatelessWidget {
                       )),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.only(top: 100),
-                child: Center(
-                  child: ElevatedButton(
-                    child: Text("Calculate"),
-                    onPressed: () {
-                      int? grade = int.tryParse(controller.text);
-                      if (grade! >= 90) {
-                        print("A");
-                      } else if (grade >= 80) {
-                        print("B");
-                      } else if (grade >= 70) {
-                        print("C");
-                      } else if (grade >= 60) {
-                        print("D");
-                      } else {
-                        print("F");
-                      }
-                    },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(top: 100),
+                    child: Center(
+                      child: ElevatedButton(
+                        child: Text("Calculate"),
+                        onPressed: () {
+                          setState(() {
+                            gradeText;
+                          });
+                          int? grade = int.tryParse(controller.text);
+                          if (grade! >= 90) {
+                            print("A");
+                            gradeText = ("A");
+                          } else if (grade >= 80) {
+                            print("B");
+                            gradeText = ("B");
+                          } else if (grade >= 70) {
+                            print("C");
+                            gradeText = ("C");
+                          } else if (grade >= 60) {
+                            print("D");
+                            gradeText = ("D");
+                          } else {
+                            print("F");
+                            gradeText = ("F");
+                          }
+                        },
+                      ),
+                    ),
                   ),
+                ],
+              ),
+              Center(
+                child: Text(
+                  "$gradeText",
+                  style: TextStyle(
+                    color: gradeText == "F" ? Colors.red : Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 150,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ],
